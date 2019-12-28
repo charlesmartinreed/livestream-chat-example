@@ -1,7 +1,7 @@
 let video = document.getElementById("webcam-stream");
 
 let constraints = {
-  audio: true,
+  audio: false,
   video: {
     width: { min: 480 },
     height: { min: 640 }
