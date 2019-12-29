@@ -52,3 +52,33 @@ async function submitIdea(e) {
   tech = "";
   viewer = "";
 }
+
+function renderIdea(idea) {
+  // be sure to append with +=
+  document.getElementById("ideas").innerHTML += `
+  <div class="card bg-secondary my-3">
+  <div class="card-body">
+    <p class="lead">
+      ${idea.text} <strong>(${idea.tech})</strong>
+      <br />
+      <em>Submitted by ${idea.viewer}</em>
+      <br />
+      <small>${idea.time}</small>
+    </p>
+  </div>
+</div>
+  `;
+}
+
+// Initializer method
+async function init() {
+  const ideas = await app.service("ideas").find();
+
+  //   Add existing ideas to list
+  ideas.forEach(renderIdea);
+
+  //   Add idea to DOM in realtime
+  app.service("ideas").on("created", renderIdea);
+}
+
+init();
